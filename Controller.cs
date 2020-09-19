@@ -26,7 +26,7 @@ namespace ScreensaverBase
 			Rect.Inflate(_Speed, _Speed);
 			if (Rect.Width > _Width && Rect.Height > _Height)
 			{
-				Rect = new Rectangle(_Width / 4, _Height / 4, _Width / 2, _Height / 2);
+				Rect = new Rectangle(_Width / 2, _Height / 2, 0, 0);
 			}
 		}
 

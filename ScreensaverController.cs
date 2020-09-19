@@ -7,8 +7,14 @@ namespace ScreensaverBase
 {
 	class ScreensaverController
 	{
+		private readonly bool UseTimer = false;
+		private readonly int Fps = 30;
+
+
 		private readonly ScreensaverSettings _ScreensaverSettings = new ScreensaverSettings();
 		private object _lock = new object();
+		private System.Threading.Timer _Timer;
+		private bool _IsUpdating = false;
 		private IController _game;
 		private IPainter _painter;
 		private bool _Paused;
@@ -50,6 +56,7 @@ namespace ScreensaverBase
 		public ScreensaverController()
 		{
 			_ScreensaverSettings.Load();
+			_Timer = new System.Threading.Timer(OnTimer);
 		}
 		internal void RecreateGame(Rectangle rcClient)
 		{
@@ -78,35 +85,66 @@ namespace ScreensaverBase
 		}
 		internal void Start()
 		{
-			_t = new Thread(GameLoop)
+			if (UseTimer)
 			{
-				IsBackground = true
-			};
-
-			IsRunning = true;
-			_t.Start();
+				_Timer.Change(0, 1000 / Fps);
+			}
+			else
+			{
+				_t = new Thread(GameLoop)
+				{
+					IsBackground = true
+				};
+				IsRunning = true;
+				_t.Start();
+			}
 		}
 		internal void Stop()
 		{
-			IsRunning = false;
-			_t.Join(TimeSpan.FromSeconds(20)); // wait thread to finish
+			if (UseTimer)
+			{
+				_Timer.Change(0, -1);
+
+			}
+			else
+			{
+				IsRunning = false;
+				_t.Join(TimeSpan.FromSeconds(20)); // wait thread to finish
+			}
+		}
+		private void OnTimer(object state)
+		{
+			GameUpdate();
 		}
 		private void GameLoop()
 		{
 			while (IsRunning)
 			{
-				if (!Paused)
+				GameUpdate();
+				Thread.Sleep(1000 / Fps);
+			}
+		}
+		private void GameUpdate()
+		{
+			lock (_lock)
+			{
+				if (_IsUpdating) return;
+				_IsUpdating = true;
+			}
+			if (!Paused)
+			{
+				lock (_lock)
 				{
-					lock (_lock)
-					{
-						_game.Update();
-					}
-
-					DrawGame();
-
-					_fps.Increment();
+					_game.Update();
 				}
-				Thread.Sleep(1000 / 30);
+
+				DrawGame();
+
+				_fps.Increment();
+			}
+			lock (_lock)
+			{
+				_IsUpdating = false;
 			}
 		}
 		internal void DrawGame()
