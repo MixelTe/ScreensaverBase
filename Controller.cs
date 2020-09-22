@@ -6,24 +6,22 @@ namespace ScreensaverBase
 {
 	class Controller: IController
 	{
-		private readonly ScreensaverSettings _Settings;
+		private readonly Settings _Settings;
 		private readonly int _Height;
 		private readonly int _Width;
 		public Rectangle Rect;
 
-		private readonly int _Speed;
 
-		public Controller(int width, int height, ScreensaverSettings settings)
+		public Controller(int width, int height)
 		{
-			_Settings = settings;
-			_Speed = _Settings.Speed;
+			_Settings = Program.Settings;
 			_Width = width;
 			_Height = height;
 			Rect = new Rectangle(width / 2, height / 2, 0, 0);
 		}
 		public void Update()
 		{
-			Rect.Inflate(_Speed, _Speed);
+			Rect.Inflate(_Settings.Speed, _Settings.Speed);
 			if (Rect.Width > _Width && Rect.Height > _Height)
 			{
 				Rect = new Rectangle(_Width / 2, _Height / 2, 0, 0);

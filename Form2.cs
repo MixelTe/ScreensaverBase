@@ -14,14 +14,13 @@ namespace ScreensaverBase
 {
 	public partial class Form2 : Form
 	{
-		private ScreensaverSettings _Settings = new ScreensaverSettings();
 		public Form2()
 		{
 			InitializeComponent();
 			
 			ChangeLanguage();
 
-			_Settings.Load();
+			RegSerializer.Load(Program.KeyName, Program.Settings);
 
 			SetFields();
 		}
@@ -39,16 +38,12 @@ namespace ScreensaverBase
 		}
 		private void SetFields()
 		{
-			SpeedUnD.Value = _Settings.Speed;
-		}
-		private void ResetFields()
-		{
-			SpeedUnD.Value = ScreensaverSettings.D_Speed;
+			SpeedUnD.Value = Program.Settings.Speed;
 		}
 
 		private void MaxLengthUnD_ValueChanged(object sender, EventArgs e)
 		{
-			_Settings.Speed = (int)SpeedUnD.Value;
+			Program.Settings.Speed = (int)SpeedUnD.Value;
 		}
 
 
@@ -56,12 +51,12 @@ namespace ScreensaverBase
 
 		private void ResetBtn_Click(object sender, EventArgs e)
 		{
-			ResetFields();
-			_Settings = new ScreensaverSettings();
+			SetFields();
+			Program.Settings = new Settings();
 		}
 		private void OkBtn_Click(object sender, EventArgs e)
 		{
-			_Settings.Save();
+			RegSerializer.Save(Program.KeyName, Program.Settings);
 			Close();
 		}
 

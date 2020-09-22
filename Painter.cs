@@ -4,11 +4,13 @@ namespace ScreensaverBase
 {
 	class Painter : IPainter
 	{
+		private readonly Settings _Settings;
 		private readonly Controller _game;
 		private readonly Rectangle _rcClient;
 
 		public Painter(Controller game, Rectangle rcClient)
 		{
+			_Settings = Program.Settings;
 			_game = game;
 			_rcClient = rcClient;
 		}
