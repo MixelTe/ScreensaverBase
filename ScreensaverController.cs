@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace ScreensaverBase
+namespace ScreenSaverBase
 {
 	class ScreensaverController
 	{
@@ -12,6 +12,8 @@ namespace ScreensaverBase
 		private readonly int Fps = 30;
 
 
+		private Func<IController> _CreateController;
+		private Func<IPainter> _CreatePainter;
 		private object _lock = new object();
 		private System.Threading.Timer _Timer;
 		private bool _IsUpdating = false;
@@ -54,25 +56,29 @@ namespace ScreensaverBase
 				lock (_lock) _IsRunning = value;
 			}
 		}
-		public ScreensaverController()
+		public ScreensaverController(Func<IController> createController, Func<IPainter> createPainter)
 		{
-			RegSerializer.Load(Program.KeyName, Program.Settings);
+			_CreateController = createController;
+			_CreatePainter = createPainter;
 			_Timer = new System.Threading.Timer(OnTimer);
 			_time = Stopwatch.GetTimestamp();
 		}
 		internal void RecreateGame(Rectangle rcClient)
 		{
-			var game = new Controller(rcClient.Width, rcClient.Height);
-			var painter = new Painter(game, rcClient);
+			var controller = _CreateController();
+			var painter = _CreatePainter();
 
-			AssignComponents(game, painter, rcClient);
+			controller.Init(rcClient.Width, rcClient.Height);
+			painter.Init(controller, rcClient);
+
+			AssignComponents(controller, painter, rcClient);
 		}
-		private void AssignComponents(Controller game, Painter painter, Rectangle rcClient)
+		private void AssignComponents(IController game, IPainter painter, Rectangle rcClient)
 		{
 			lock (_lock)
 			{
-				_game?.Dispose();
-				_painter?.Dispose();
+				if (_game is IDisposable d) d.Dispose();
+				if (_painter is IDisposable d2) d2.Dispose();
 				_game = game;
 				_painter = painter;
 

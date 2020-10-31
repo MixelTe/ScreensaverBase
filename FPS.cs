@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace ScreensaverBase
+namespace ScreenSaverBase
 {
 	class FPS
 	{

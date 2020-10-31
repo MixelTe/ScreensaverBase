@@ -1,26 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ScreensaverBase
+namespace ScreenSaverBase
 {
 	public partial class Form1 : Form
 	{
 		private Point _PastMousePos;
 		private bool _FirstMouseMove = true;
 		private Size _OldSize;
-		private readonly ScreensaverController _Controller = new ScreensaverController();
+		private readonly ScreensaverController _Controller;
 
-		public Form1()
+		public Form1(Func<IController> createController, Func<IPainter> createPainter)
 		{
 			InitializeComponent();
 			Cursor.Hide();
+			_Controller = new ScreensaverController(createController, createPainter);
 		}
 
 		private void Form1_Load(object sender, EventArgs e)

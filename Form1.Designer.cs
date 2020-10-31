@@ -1,4 +1,6 @@
-﻿namespace ScreensaverBase
+﻿using System.Windows.Forms;
+
+namespace ScreenSaverBase
 {
 	partial class Form1
 	{
@@ -53,6 +55,7 @@
 			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
 			this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
 			this.ResumeLayout(false);
+			this.WindowState = FormWindowState.Maximized;
 
 		}
 

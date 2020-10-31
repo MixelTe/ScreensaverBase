@@ -3,7 +3,7 @@ using System;
 using System.Drawing;
 using System.Globalization;
 
-namespace ScreensaverBase
+namespace ScreenSaverBase
 {
 	internal class RegSerializer
 	{

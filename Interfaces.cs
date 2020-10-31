@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Drawing;
 
-namespace ScreensaverBase
+namespace ScreenSaverBase
 {
 	interface IDrawingBuffer : IDisposable
 	{
 		void Draw(IPainter painter);
 		void RenderTo(Graphics target);
 	}
-	internal interface IPainter : IDisposable
+	public interface IPainter
 	{
+		void Init(IController controller, Rectangle rcScreen);
 		void Draw(Graphics g);
 	}
 
-	internal interface IController : IDisposable
+	public interface IController
 	{
+		void Init(int screenWidth, int screenHeight);
 		void Update();
 	}
 }

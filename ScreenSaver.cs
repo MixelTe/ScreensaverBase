@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ScreensaverBase
+namespace ScreenSaverBase
 {
-	static class Program
+	static class ScreenSaver
 	{
-		public static readonly string KeyName = @"HKEY_CURRENT_USER\Software\MixelTe\ScreenSaver";
-		public static Settings Settings = new Settings();
-		/// <summary>
-		/// The main entry point for the application.
-		/// </summary>
-		[STAThread]
-		static void Main(string[] args)
+		static public object Settings = new object();
+		static public string Regkey = @"HKEY_CURRENT_USER\Software\MixelTe\ScreenSaver";
+		public static void Run(string[] args, Func<Form> createSettingsForm, Func<IController> createController, Func<IPainter> createPainter)
 		{
 			//var message = "";
 			//foreach (var item in args)
@@ -24,16 +17,22 @@ namespace ScreensaverBase
 			//MessageBox.Show(message);
 			if (args.Length > 0 && args[0].Substring(0, 2).Equals("/s", StringComparison.InvariantCultureIgnoreCase))
 			{
+				RegSerializer.Load(Regkey, Settings);
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
-				Application.Run(new Form1());
+				Application.Run(new Form1(createController, createPainter));
 			}
 			else if (args.Length == 0 || args.Length > 0 && args[0].Substring(0, 2).Equals("/c", StringComparison.InvariantCultureIgnoreCase))
 			{
+				RegSerializer.Load(Regkey, Settings);
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
-				Application.Run(new Form2());
+				Application.Run(createSettingsForm());
 			}
+		}
+		static public void SaveSettingsToReg()
+		{
+			RegSerializer.Save(Regkey, Settings);
 		}
 	}
 }

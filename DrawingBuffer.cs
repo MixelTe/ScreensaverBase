@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace ScreensaverBase
+namespace ScreenSaverBase
 {
 	class DrawingBuffer : IDrawingBuffer, IDisposable
 	{
