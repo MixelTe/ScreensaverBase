@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Screensaver", "Screensaver.csproj", "{291E7F4B-DB8A-42ED-8368-D13308D34F5F}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ScreenSaverBase", "..\ScreenSaverBase.shproj", "{87CAA6BA-1101-41E6-8F49-0D61C06E4D42}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\ScreenSaverBase.projitems*{291e7f4b-db8a-42ed-8368-d13308d34f5f}*SharedItemsImports = 4
+		..\ScreenSaverBase.projitems*{87caa6ba-1101-41e6-8f49-0d61c06e4d42}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{291E7F4B-DB8A-42ED-8368-D13308D34F5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{291E7F4B-DB8A-42ED-8368-D13308D34F5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{291E7F4B-DB8A-42ED-8368-D13308D34F5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{291E7F4B-DB8A-42ED-8368-D13308D34F5F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9C53336E-4185-42E1-BE86-87837760874A}
+	EndGlobalSection
+EndGlobal
