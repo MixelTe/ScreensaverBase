@@ -20,7 +20,7 @@ namespace ScreenSaverBase
 				RegSerializer.Load(Regkey, Settings);
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
-				Application.Run(new Form1(createController, createPainter));
+				Application.Run(new ScreenSaverForm(createController, createPainter));
 			}
 			else if (args.Length == 0 || args.Length > 0 && args[0].Substring(0, 2).Equals("/c", StringComparison.InvariantCultureIgnoreCase))
 			{

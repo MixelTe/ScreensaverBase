@@ -4,14 +4,14 @@ using System.Windows.Forms;
 
 namespace ScreenSaverBase
 {
-	public partial class Form1 : Form
+	public partial class ScreenSaverForm : Form
 	{
 		private Point _PastMousePos;
 		private bool _FirstMouseMove = true;
 		private Size _OldSize;
 		private readonly ScreensaverController _Controller;
 
-		public Form1(Func<IController> createController, Func<IPainter> createPainter)
+		public ScreenSaverForm(Func<IController> createController, Func<IPainter> createPainter)
 		{
 			InitializeComponent();
 			Cursor.Hide();

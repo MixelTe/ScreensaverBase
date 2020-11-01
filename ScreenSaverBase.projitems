@@ -11,9 +11,9 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ScreenSaver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DrawingBuffer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Form1.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)ScreenSaverForm.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ScreenSaverForm.Designer.cs">
+      <DependentUpon>ScreenSaverForm.cs</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)FPS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces.cs" />
@@ -21,8 +21,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)ScreensaverController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ScreenSaverForm.resx">
+      <DependentUpon>ScreenSaverForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
 </Project>
